@@ -5,7 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
+Route::get('/log', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -24,8 +24,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/active', function () {
-    return Inertia::render('ActiveProjects/index');
-})->name('active');
+// Route::get('/active', function () {
+//     return Inertia::render('ActiveProjects/index');
+// })->name('active');
+
+Route::get('/{any}', function () {
+    return Inertia::render('../App');
+})->where('any', '.*');
 
 require __DIR__.'/auth.php';
